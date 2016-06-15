@@ -1,5 +1,6 @@
 test.o :
 	g++ -c test.cpp
+	g++ -c sprite2.cpp
 	g++ test.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system -lpng -lz
 
 all: $(OBJS) clean
