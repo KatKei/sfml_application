@@ -60,6 +60,10 @@ int main()
               bert.y_vel=1; bert.x_vel=0;
           }
         }
+        if(event.type==sf::Event::KeyReleased)
+        {
+          bert.x_vel=0; bert.y_vel=0;
+        }
         if (bert.getGlobalBounds().intersects(mary.getGlobalBounds()))
         {
           maryexist=1;
