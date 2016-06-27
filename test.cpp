@@ -1,7 +1,8 @@
-#include "sprite2.cpp"
-#include <SFML/Window.hpp>
 
-int window_x=1000;
+#include <SFML/Window.hpp>
+#include "test.h"
+
+/*int window_x=1000;
 int window_y=600;
 int maryexist=0;
 
@@ -11,38 +12,35 @@ sf::RenderWindow window(sf::VideoMode(window_x, window_y), "YAY");
 Sprite2 bert= Sprite2();
 Sprite2 mary= Sprite2();
 sf::Texture bertface;
-sf::Texture maryface;
+sf::Texture maryface; */
 
 //bert.texture.loadFromFile("BertFace.png");
 
 
-int main()
+void make_bert()
 {
-  //shape.setFillColor(sf::Color::Red);//(150, 50, 200));
-  bertface.loadFromFile("BertFace.png");
+    bert= Sprite2();
+    bertface.loadFromFile("BertFace.png");
+    bert.setTexture(bertface);
+    sf::FloatRect boundsB=bert.getGlobalBounds();
+    bert.setPosition(window_x/2-boundsB.width/2, window_y/2-boundsB.height/2);
+}
+void make_mary()
+{
+  mary= Edibles();
   maryface.loadFromFile("maryface.png");
-  bert.setTexture(bertface);
+
   mary.setTexture(maryface);
-  mary.setPosition(30, 150); //make random later
-  sf::FloatRect boundsB=bert.getGlobalBounds();
-  bert.setPosition(window_x/2-boundsB.width/2, window_y/2-boundsB.height/2);
 
-  while(window.isOpen())
+}
+void move_bert()
+{
+  bert.move(bert.x_vel, bert.y_vel);
+}
+
+
+void key_pressed_moves()
   {
-    event = sf::Event();
-
-      bert.move(bert.x_vel, bert.y_vel);
-    while(window.pollEvent(event))
-    {
-
-
-        if (event.type == sf::Event::Closed || (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape))
-        {
-          window.close();
-        }
-
-        if(event.type==sf::Event::KeyPressed)
-        {
           if(event.key.code==sf::Keyboard::Left)
           {
             bert.x_vel=-1; bert.y_vel=0;
@@ -59,15 +57,20 @@ int main()
           {
               bert.y_vel=1; bert.x_vel=0;
           }
-        }
-        if(event.type==sf::Event::KeyReleased)
-        {
+  }
+void key_released_moves()
+  {
           bert.x_vel=0; bert.y_vel=0;
-        }
-        if (bert.getGlobalBounds().intersects(mary.getGlobalBounds()))
-        {
+  }
+void eatMary()
+  {
+      if (bert.getGlobalBounds().intersects(mary.getGlobalBounds()))
+      {
           maryexist=1;
         }
+  }
+void checkOutOfBounds()
+{
         if (bert.getPosition().x > window_x)
         {
           bert.setPosition(0, bert.getPosition().y);
@@ -84,17 +87,18 @@ int main()
         {
           bert.setPosition(bert.getPosition().x, window_y);
         }
+}
 
-    }
+void draw_all()
+{
     window.clear(sf::Color(0,0,0,255));
 
 
-    window.draw(bert);
-    if (maryexist==0)
-    {
-      window.draw(mary);
-    }
-    window.display();
-  }
-  return 0;
-};
+      window.draw(bert);
+      if (!maryexist)
+      {
+        window.draw(mary);
+      }
+      window.display();
+
+}
