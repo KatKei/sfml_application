@@ -2,19 +2,6 @@
 #include <SFML/Window.hpp>
 #include "test.h"
 
-/*int window_x=1000;
-int window_y=600;
-int maryexist=0;
-
-sf::Event event;
-sf::RenderWindow window(sf::VideoMode(window_x, window_y), "YAY");
-
-Sprite2 bert= Sprite2();
-Sprite2 mary= Sprite2();
-sf::Texture bertface;
-sf::Texture maryface; */
-
-//bert.texture.loadFromFile("BertFace.png");
 
 
 void make_bert()
@@ -62,12 +49,13 @@ void key_released_moves()
   {
           bert.x_vel=0; bert.y_vel=0;
   }
-void eatMary()
+void eatMary(Edibles mary)
   {
       if (bert.getGlobalBounds().intersects(mary.getGlobalBounds()))
       {
           maryexist=1;
-        }
+          bert.setScale(bert.x_scale * 1.05, bert.y_scale * 1.05);
+      }
   }
 void checkOutOfBounds()
 {

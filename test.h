@@ -7,7 +7,7 @@ int window_y=600;
 int maryexist=0;
 
 sf::Event event;
-sf::RenderWindow window(sf::VideoMode(window_x, window_y), "YAY");
+sf::RenderWindow window(sf::VideoMode(window_x, window_y), "BERTFACE");
 
 Sprite2 bert;
 Edibles mary;
@@ -22,7 +22,7 @@ void move_bert();
 void key_pressed_moves();
 void key_released_moves();
 void checkOutOfBounds();
-void eatMary();
+void eatMary(Edibles mary);
 void draw_all();
 
 
@@ -60,7 +60,7 @@ int main()
           key_released_moves();
         }
     }
-    eatMary();
+    eatMary(mary);
     draw_all();
   }
   return 0;
